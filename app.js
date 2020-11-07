@@ -61,6 +61,7 @@ function Shop(data) {
     b.appendChild(d);
     document.body.appendChild(b);
     /* Génère la structure suivante :
+
     div .shop-block
     - img .shop-img
     - div .shop-name
