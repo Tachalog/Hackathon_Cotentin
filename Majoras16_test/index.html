@@ -154,7 +154,7 @@ xhr.responseType = "arraybuffer";
 xhr.onload = function() {
 	let d = new Uint8Array(xhr.response);
 	let wb = XLSX.read(d, {type:"array"});
-	alert(wb);
+	alert(JSON.stringify(wb));
 };
 xhr.onerror = function () {
 	alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
