@@ -154,7 +154,8 @@ xhr.responseType = "arraybuffer";
 xhr.onload = function() {
 	let d = new Uint8Array(xhr.response);
 	let wb = XLSX.read(d, {type:"array"});
-	let rown = wb.Sheets.Feuil1["!ref"].replace(/(.*?):(.*?)/g,"$1").replace(/\D/g,"");
+	let rown = wb.Sheets.Feuil1["!ref"];
+	rown = rown.substring(rown.indexOf(":"),rown.length).replace(/\D/g,"");
 	alert(rown);
 };
 xhr.onerror = function () {
