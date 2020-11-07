@@ -156,8 +156,8 @@ xhr.onload = function() {
 	let wb = XLSX.read(d, {type:"array"}).Sheets.Feuil1;
 	let rown = wb["!ref"];
 	rown = Number(rown.substring(rown.indexOf(":"),rown.length).replace(/\D/g,""));
-	let i = 0;
-	while(i < rown) {
+	let i = 1;
+	while(i <= rown) {
 		new Shop({
 			id: wb["A"+i].v, // ID
        	    		nom: wb["B"+i].v, // Nom du commerce
