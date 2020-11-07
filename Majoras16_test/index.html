@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Analytics -->
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description"
+        content="">
+    <meta property="og:image" content="./img/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="">
+    <meta property="twitter:description"
+        content="">
+    <meta property="twitter:image" content="./img/logo.png">
+
+    <!-- Analytics END -->
+    <title>Dans ma zone</title>
+</head>
+<body>
+    <h1>Titre à changer "dans ma zone" est déjà utilisé</h1>
+    <nav>
+        <figure>
+            <h2>slider photo ????à faire une fois que l'on aura les photo ????</h2>
+            <img src="#" alt="photo des boutiques Cotentin ">
+        </figure>
+        <ul class="menu">
+            <li>
+            <a href="#home">Accueil</a>
+            <a href="html/selectionStore.html">Votre sélection</a>
+            <a href="#contact">Contact</a>
+        </li>                
+    </nav>
+
+    <main>
+        <h2>Catégorie des commerçants</h2>
+
+        <div id="container">
+            <article class="article">
+                <img src="#" alt="image d'illustration Accessoires">
+                <h3 class="Accessoires">Accessoires</h3>
+            </article>
+
+            <article class="article">
+                <img src="#" alt="image d'illustration Alimentation">
+                <h3 class="Alim">Alimentation</h3>
+            </article>
+
+            <article class="article">
+                <img src="#" alt="image d'illustration Loisirs">
+                <h3 class="Loisirs">Loisirs</h3>
+            </article>
+
+            <article class="article">
+                <img src="#" alt="image d'illustration Maison">
+                <h3 class="Maison">Maison</h3>
+            </article>
+
+             <article class="article">
+                 <img src="#" alt="image d'illustration Services">
+                 <h3 class="Services">Services</h3>
+             </article>
+
+              <article class="article">
+                  <img src="#" alt="image d'illustration Vêtements">
+                  <h3 class="Vêtements">Vêtements</h3>
+              </article>
+        </div>
+    </main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.7/xlsx.js"></script>
+<script type="text/javascript">
+function csv2json(csv) {
+    let j = {
+        data: []
+    };
+    let rows = csv.split("\n");
+    let header = rows.shift();
+    rows.forEach(function (r) {
+        let cells = r.split(";");
+        j.data[j.data.length] = {
+            id: cells[0], // ID
+            nom: cells[1], // Nom du commerce
+            cat: cells[2], // Catégorie
+            desc: cells[3], // Description
+            nom_c: cells[4], // Nom (contact)
+            tel: cells[5], // Numéro de télephone */
+            email_c: cells[6], // E-mail (contact)
+            addresse: cells[7], // Adresse
+            site: cells[8], // Site Web
+            reseaux: cells[9], // Réseaux sociaux
+            services: cells[10], // Services
+            email_adm: cells[11] // E-mail (admin)
+        };
+    });
+    return j;
+}
+
+function more(id, desc) {
+    if (!desc || !id || typeof desc !== "string" || typeof id !== "string") {
+        return false;
+    }
+    let e = document.querySelector("#shop-block-" + id);
+    e.querySelectorAll(".shop-desc")[0].innerHTML = desc;
+}
+
+function Shop(data) {
+    if (!data || (typeof data !== "string" && typeof data !== "object")) {
+        return false;
+    }
+    let j = (typeof data === "string" ? JSON.stringify(data) : data);
+    j.id = j.id.toString();
+
+    let b = document.createElement("div");
+    b.className = "shop-block";
+    b.id = "shop-block-" + j.id;
+    b.addEventListener("click", function () {
+        more(j.id, j.desc);
+    });
+    let i = document.createElement("img");
+    i.src = j.img;
+    i.className = "shop-img";
+    let n = document.createElement("div");
+    n.className = "shop-name";
+    n.innerHTML = j.nom;
+    let d = document.createElement("div");
+    d.className = "shop-desc";
+    d.innerHTML = (j.desc.length > 250 ? j.desc.substring(0, 247) + "..." : j.desc);
+
+    b.appendChild(i);
+    b.appendChild(n);
+    b.appendChild(d);
+    document.body.appendChild(b);
+    /* Génère la structure suivante :
+    div .shop-block
+    - img .shop-img
+    - div .shop-name
+    - div .shop-desc
+    */
+}
+
+let xhr = new XMLHttpRequest();
+xhr.open("GET", "data.xlsx");
+xhr.onload = function () {
+    let reader = new FileReader();
+	reader.onload = function(r) {
+		let d = r.target.result;
+		let wb = XLSX.read(d,{type:"binary"});
+		let sheet_name_list = workbook.SheetNames;
+		exceljson = XLSX.utils.sheet_to_json(wb.Sheets[0]);
+		alert(exceljson);
+	}
+	reader.readAsArrayBuffer(whr.responseText);
+};
+xhr.onerror = function () {
+    alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
+};
+xhr.send();
+</script>
+</html>
