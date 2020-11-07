@@ -153,11 +153,28 @@ xhr.open("GET", "data.xlsx", true);
 xhr.responseType = "arraybuffer";
 xhr.onload = function() {
 	let d = new Uint8Array(xhr.response);
-	let wb = XLSX.read(d, {type:"array"});
-	let rown = wb.Sheets.Feuil1["!ref"];
-	rown = rown.substring(rown.indexOf(":"),rown.length).replace(/\D/g,"");
-	alert(rown);
-};
+	let wb = XLSX.read(d, {type:"array"}).Sheets.Feuil1;
+	let rown = wb["!ref"];
+	rown = Number(rown.substring(rown.indexOf(":"),rown.length).replace(/\D/g,""));
+	let i = 0;
+	while(i < rown) {
+		new Shop({
+			id: wb["A"+i].v, // ID
+       	    		nom: wb["B"+i].v, // Nom du commerce
+       			cat: wb["C"+i].v, // Catégorie
+        		desc: wb["D"+i].v, // Description
+            		nom_c: wb["E"+i].v, // Nom (contact)
+            		tel: wb["F"+i].v, // Numéro de télephone
+            		email_c: wb["G"+i].v, // E-mail (contact)
+            		addresse: wb["H"+i].v, // Adresse
+            		site: wb["I"+i].v, // Site Web
+            		reseaux: wb["J"+i].v, // Réseaux sociaux
+            		services: wb["K"+i].v, // Services
+            		email_adm: wb["L"+i].v // E-mail (admin)
+		});
+		i += 1;
+	}
+});
 xhr.onerror = function () {
 	alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
 };
