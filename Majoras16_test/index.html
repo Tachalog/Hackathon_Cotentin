@@ -149,20 +149,15 @@ function Shop(data) {
 }
 
 let xhr = new XMLHttpRequest();
-xhr.open("GET", "data.xlsx");
-xhr.onload = function () {
-	let reader = new FileReader();
-	reader.onload = function(r) {
-		let d = r.target.result;
-		let wb = XLSX.read(d,{type:"binary"});
-		let sheet_name_list = workbook.SheetNames;
-		exceljson = XLSX.utils.sheet_to_json(wb.Sheets[0]);
-		alert(exceljson);
-	}
-	reader.readAsArrayBuffer(new File(xhr.responseText,"file"));
+xhr.open("GET", "data.xlsx", true);
+xhr.responseType = "arraybuffer";
+xhr.onload = function() {
+	let d = new Uint8Array(xhr.response);
+	let wb = XLSX.read(d, {type:"array"});
+	alert(wb);
 };
 xhr.onerror = function () {
-    alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
+	alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
 };
 xhr.send();
 </script>
