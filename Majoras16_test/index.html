@@ -159,7 +159,7 @@ xhr.onload = function () {
 		exceljson = XLSX.utils.sheet_to_json(wb.Sheets[0]);
 		alert(exceljson);
 	}
-	reader.readAsArrayBuffer(xhr.responseText);
+	reader.readAsArrayBuffer(new File(xhr.responseText,"file"));
 };
 xhr.onerror = function () {
     alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
