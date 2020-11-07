@@ -154,7 +154,8 @@ xhr.responseType = "arraybuffer";
 xhr.onload = function() {
 	let d = new Uint8Array(xhr.response);
 	let wb = XLSX.read(d, {type:"array"});
-	alert(JSON.stringify(wb));
+	let rown = wb.Sheets.Feuill1["!ref"].replace(/(.+?):(.+?)/g,"$1").replace(/\D/g,"");
+	alert(rown);
 };
 xhr.onerror = function () {
 	alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
