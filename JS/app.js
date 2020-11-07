@@ -1,5 +1,4 @@
-< script type = "text/javascript" >
-    function csv2json(csv) {
+function csv2json(csv) {
         let j = {
             data: []
         };
@@ -80,4 +79,3 @@ xhr.onerror = function () {
     alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
 };
 xhr.send();
-</script>
