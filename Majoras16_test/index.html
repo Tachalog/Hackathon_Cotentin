@@ -151,7 +151,7 @@ function Shop(data) {
 let xhr = new XMLHttpRequest();
 xhr.open("GET", "data.xlsx");
 xhr.onload = function () {
-    let reader = new FileReader();
+	let reader = new FileReader();
 	reader.onload = function(r) {
 		let d = r.target.result;
 		let wb = XLSX.read(d,{type:"binary"});
@@ -159,7 +159,7 @@ xhr.onload = function () {
 		exceljson = XLSX.utils.sheet_to_json(wb.Sheets[0]);
 		alert(exceljson);
 	}
-	reader.readAsArrayBuffer(whr.responseText);
+	reader.readAsArrayBuffer(xhr.responseText);
 };
 xhr.onerror = function () {
     alert("Impossible de charger les donn\u00e9es. Essayez de recharger la page.");
